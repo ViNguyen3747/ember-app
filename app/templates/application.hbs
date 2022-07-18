@@ -7,17 +7,6 @@
           <span class='font-normal'>with Octane</span></h1></a>
     </div>
   </div>
-  <ul>
-    {{#each
-      (array
-        (hash title='Black Dog band' band='Led Zeppelin' rating=3)
-        (hash title='Yellow ' band='Pearl' rating=4)
-        (hash title='The Pretender' band='Foo Fighters' rating=2)
-      )
-      as |song|
-    }}<li class='leading-loose'>{{song.title}}
-        by
-        {{song.band}}
-        <span class='float-right'>({{song.rating}})</span></li>{{/each}}
-  </ul>
+  <div class='flex flex-wrap -mx-2'>{{outlet}}</div>
+
 </div>
