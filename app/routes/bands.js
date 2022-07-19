@@ -1,8 +1,6 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
-import fetch from 'fetch';
-import { Band } from '../models/band';
-import { Song } from '../models/song';
+
 export default class BandsRoute extends Route {
   @service catalog;
   // model() {
@@ -52,19 +50,7 @@ export default class BandsRoute extends Route {
   //   this.catalog.add('band', thirdBand);
   //   return this.catalog.bands;
   // }
-  async model() {
-    let response = await fetch('/bands');
-    let json = await response.json();
-    for (let item of json.data) {
-      let { id, attributes, relationships } = item;
-      let rels = {};
-      for (let relationshipName in relationships) {
-        rels[relationshipName] = relationships[relationshipName].links.related;
-      }
-
-      let record = new Band({ id, ...attributes }, rels);
-      this.catalog.add('band', record);
-    }
-    return this.catalog.bands;
+  model() {
+    return this.catalog.fetchAll('bands');
   }
 }

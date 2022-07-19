@@ -1,6 +1,6 @@
 import { tracked } from '@glimmer/tracking';
 
-export class Band {
+export default class Band {
   @tracked songs;
   @tracked name;
   constructor({ id, name, songs }, relationships = {}) {
