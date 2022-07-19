@@ -17,14 +17,14 @@ export default class BandsNewController extends Controller {
   @action async saveBand() {
     let response = await fetch('/bands', {
       method: 'POST',
-      headers: { 'Content-Type': 'application.vnd.api+json' },
+      headers: { 'Content-Type': 'application/vnd.api+json' },
       body: JSON.stringify({
-        data: { type: 'bands', attribute: { name: this.name } },
+        data: { type: 'bands', attributes: { name: this.name } },
       }),
     });
     let json = await response.json();
-    let { id, attribute } = json.data;
-    let record = new Band({ id, ...attribute });
+    let { id, attributes } = json.data;
+    let record = new Band({ id, ...attributes });
     this.catalog.add('band', record);
     this.router.transitionTo('bands.band.songs', id);
   }

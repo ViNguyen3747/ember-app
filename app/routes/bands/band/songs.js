@@ -20,10 +20,9 @@ export default class BandsBandSongsRoute extends Route {
       let song = new Song({ id, ...attributes }, rels);
       songs.push(song);
       this.catalog.add('song', song);
-
-      band.songs = songs;
-      return band;
     }
+    band.songs = songs;
+    return band;
   }
   resetController(controller) {
     controller.title = '';
