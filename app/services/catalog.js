@@ -25,8 +25,10 @@ export default class CatalogService extends Service {
       for (let item of json.data) {
         let { id, attributes, relationships } = item;
         let rels = extractRelationships(relationships);
-        let record = new Band({ id, ...attributes }, rels);
-        this.add('band', record);
+        if (id) {
+          let record = new Band({ id, ...attributes }, rels);
+          this.add('band', record);
+        }
       }
       return this.bands;
     }
