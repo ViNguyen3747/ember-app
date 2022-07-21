@@ -8,11 +8,29 @@ export default class BandsNewController extends Controller {
 
   @tracked name;
 
+  constructor() {
+    super(...arguments);
+    this.router.on('routeWillChange', (transition) => {
+      if (this.isAborted) return; //avoid clicking cancel twice
+      if (this.confirmedLeave) return; //avoid clicking ok twice
+      if (transition.from.name === 'bands.new') {
+        if (this.name) {
+          let leave = window.confirm('You have unsaved changes. Are you sure?');
+          if (leave) {
+            this.confirmedLeave = true;
+          } else {
+            transition.abort;
+          }
+        }
+      }
+    });
+  }
   @action updateName(event) {
     this.name = event.target.value;
   }
 
   @action async saveBand() {
+    this.confirmedLeave = true;
     let band = await this.catalog.create('band', { name: this.name });
     this.router.transitionTo('bands.band.songs', band.id);
   }
