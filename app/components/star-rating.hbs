@@ -1,5 +1,13 @@
 {{#each this.stars as |star|}}
-  <button type='button' {{on 'click' (fn @onUpdate star.rating)}}>
-    <FaIcon @icon='star' @prefix={{if star.full 'fas' 'far'}} />
+  <button
+    type='button'
+    {{on 'click' (fn @onUpdate star.rating)}}
+    data-test-selector='star-rating-button'
+  >
+    <FaIcon
+      @icon='star'
+      @prefix={{if star.full 'fas' 'far'}}
+      data-test-selector={{if star.full 'full-star' 'empty-star'}}
+    />
   </button>
 {{/each}}
