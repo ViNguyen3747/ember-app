@@ -13,13 +13,16 @@
       </li>
     {{/each}}
   </ul>
-{{else}}<p class='text-center'>The band has no song yet</p>
+{{else}}
+  <p class='text-center' data-test-selector='no-songs-text'>The band has no song
+    yet</p>
 {{/if}}
 {{#if this.showAddSong}}
   <div class='flex justify-center mt-2'><button
       type='button'
       class='px-4 py-2 rounded bg-purple-600 shadow-md hover:shadow-lg hover:text-white hover:bg-purple-500 focus:outline-none'
       {{on 'click' (set this 'showAddSong' false)}}
+      data-test-selector='new-song-title'
     >Add Song</button></div>
 {{else}}
   <div class='mt-6 flex'>
@@ -36,6 +39,7 @@
       type='button'
       class='ml-4 px-4 py-2 rounded bg-purple-600 shadow-md hover:shadow-lg hover:text-white'
       {{on 'click' this.saveSong}}
+      data-test-selector='save-song-button'
     >Save</button>
 
     <button
